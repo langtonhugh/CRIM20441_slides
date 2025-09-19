@@ -1,0 +1,167 @@
+---
+title: "Univariate analysis of categorical and numeric variables"
+author: "Making Sense of Criminological Data (Week 2)"
+subtitle: "Sam Langton, University of Manchester"
+format: revealjs
+editor_options: 
+  chunk_output_type: console
+execute:
+  echo: false
+---
+
+```{r setup}
+library(knitr)
+library(dplyr)
+```
+
+
+## Plan for today
+
+- What is univariate analysis?
+- Types of variables: categorical & numeric
+- Analysis
+  - Frequencies and percentages (categorical)
+  - Measures of central tendency (numeric)
+- So what?
+
+## Univariate analysis
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+- Univariate = one variable
+- Simple but common (and important)
+- Typically **summarising** and **describing** 
+:::
+
+::: {.column width="50%"}
+
+![](img/unicycle.gif)
+:::
+:::
+
+## Categorical variables
+
+::: columns
+::: {.column width="50%"}
+- Two or more categories, such as:
+  - Nationality
+  - Crime type
+  - Education
+- Nominal or ordinal
+
+:::
+
+::: {.column width="50%"}
+
+![](img/categorical.png){width=70%}
+
+:::
+:::
+
+## Analysis: frequencies 
+
+```{r}
+students_df <- data.frame(
+  Student.ID  = c(12,6,34,2,41,15),
+  Nationality = c("British","British","French",
+                   "Dutch","French","British")
+)
+```
+
+::: columns
+::: {.column width="50%"}
+```{r}
+kable(students_df, align = "l", caption = "Raw data") 
+```
+
+:::
+
+::: {.column width="50%"}
+  
+:::
+
+:::
+
+## Analysis: frequencies 
+
+::: columns
+::: {.column width="50%"}
+```{r}
+kable(students_df, align = "l", caption = "Raw data")
+```
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+```{r}
+freq_df <- students_df %>% 
+  group_by(Nationality) %>% 
+  summarise(Count = n())
+
+kable(freq_df, align = "l", caption = "Frequency table")
+```
+
+:::
+:::
+
+## Analysis: proportions
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+kable(freq_df, align = "l", caption = "Frequency table")
+```
+
+:::
+
+::: {.column width="50%"}
+
+:::
+:::
+
+## Analysis: proportions
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+kable(freq_df, align = "l", caption = "Frequency table")
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+freq_df %>% 
+  mutate(total = sum(Count),
+         Percent = round(Count/total*100, 0)) %>% 
+  select(-total, -Count) %>% 
+  kable(align = "l", caption = "Proportion table")
+  
+```
+
+:::
+
+::: {.column width=50%}
+  
+:::
+
+:::
+
+## Numeric variables
+
+## Analysis: central tendancy
+
+## So what?
+
+
