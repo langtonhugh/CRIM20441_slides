@@ -12,6 +12,8 @@ execute:
 ```{r setup}
 library(knitr)
 library(dplyr)
+library(readr)
+library(tidyr)
 ```
 
 
@@ -147,7 +149,6 @@ freq_df %>%
          Percent = round(Count/total*100, 0)) %>% 
   select(-total, -Count) %>% 
   kable(align = "l", caption = "Proportion table")
-  
 ```
 
 :::
@@ -157,6 +158,165 @@ freq_df %>%
 :::
 
 :::
+
+## Frequency & proportions
+
+<br>
+
+```{r}
+mersey <- read_csv("data/2025-07-merseyside-stop-and-search.csv")
+
+syork <- read_csv("data/2025-07-south-yorkshire-stop-and-search.csv")
+
+mersey_gen <- count(mersey, Gender, name = "Count") %>%
+  drop_na()
+
+syork_gen <- count(syork, Gender, name = "Count") %>% 
+  drop_na() %>% 
+  bind_rows(data.frame(
+    Gender = "Other", Count = 0 # Making categories comparable.
+  ))
+```
+
+Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
+
+::: columns
+::: {.column width=50%}
+```{r}
+kable(mersey_gen, caption = "Merseyside")
+```
+:::
+::: {.column width=50%}
+```{r}
+kable(syork_gen, caption = "South Yorkshire") 
+```
+:::
+:::
+
+<br>
+
+<center>
+
+Data for July 2025. Source: https://data.police.uk/data/.
+
+</center>
+
+## Frequency & proportions
+
+<br>
+
+```{r}
+mersey <- read_csv("data/2025-07-merseyside-stop-and-search.csv")
+
+syork <- read_csv("data/2025-07-south-yorkshire-stop-and-search.csv")
+
+mersey_gen <- count(mersey, Gender, name = "Count") %>%
+  drop_na()
+
+syork_gen <- count(syork, Gender, name = "Count") %>% 
+  drop_na() %>% 
+  bind_rows(data.frame(
+    Gender = "Other", Count = 0 # Making categories comparable.
+  ))
+```
+
+Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
+
+::: columns
+::: {.column width=50%}
+```{r}
+mersey_gen %>% 
+  mutate(total = sum(Count),
+         Percent = round(Count/total*100, 0)) %>% 
+  select(-total, -Count) %>% 
+  kable(caption = "Merseyside")
+```
+:::
+::: {.column width=50%}
+```{r}
+syork_gen %>% 
+  mutate(total = sum(Count),
+         Percent = round(Count/total*100, 0)) %>% 
+  select(-total, -Count) %>% 
+  kable(caption = "South Yorkshire") 
+```
+:::
+:::
+
+<br>
+
+<center>
+
+Data for July 2025. Source: https://data.police.uk/data/.
+
+</center>
+
+## Frequency & proportions
+
+<br>
+
+What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+
+<center>
+
+::: columns
+::: {.column width=50%}
+| Gender | Percent |
+| :----- | -----:  |
+| Female | 100     |
+| Male   | 0       |
+| Other  | 0       |
+
+: Proportion table
+
+:::
+
+::: {.column width=50%}
+
+:::
+:::
+
+<br>
+
+Data is fictitious! 
+</center>
+
+## Frequency & proportions
+
+<br>
+
+What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+
+<center>
+
+::: columns
+::: {.column width=50%}
+| Gender | Percent |
+| :----- | -----:  |
+| Female | 100     |
+| Male   | 0       |
+| Other  | 0       |
+
+: Proportion table
+
+:::
+
+::: {.column width=50%}
+| Gender | Count  |
+| :----- | ------:|
+| Female | 1      |
+| Male   | 0      |
+| Other  | 0      |
+
+: Frequency table
+
+:::
+:::
+
+<br>
+
+Data is fictitious! 
+</center>
 
 ## Numeric variables
 
