@@ -1,5 +1,5 @@
 ---
-title: "Univariate analysis of categorical and numeric variables"
+title: "<br> Univariate analysis of categorical variables"
 author: "Making Sense of Criminological Data (Week 2)"
 subtitle: "Sam Langton, University of Manchester"
 format: revealjs
@@ -14,17 +14,18 @@ library(knitr)
 library(dplyr)
 library(readr)
 library(tidyr)
+library(kableExtra)
 ```
 
 
 ## Plan for today
 
 - What is univariate analysis?
-- Types of variables: categorical & numeric
+- Categorical variables
 - Analysis
-  - Frequencies and percentages (categorical)
-  - Measures of central tendency (numeric)
-- So what?
+  - Frequencies & percentages
+  - Stop-and-search example
+- Visualisation
 
 ## Univariate analysis
 
@@ -159,9 +160,17 @@ freq_df %>%
 
 :::
 
+## Take a breather
+
 ## Frequency & proportions
 
-<br>
+Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
+
+## Frequency & proportions
+
+Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
+
+<center>
 
 ```{r}
 mersey <- read_csv("data/2025-07-merseyside-stop-and-search.csv")
@@ -176,9 +185,21 @@ syork_gen <- count(syork, Gender, name = "Count") %>%
   bind_rows(data.frame(
     Gender = "Other", Count = 0 # Making categories comparable.
   ))
+
+mersey %>% 
+  sample_n(size = 20) %>%
+  select(Type, Date, Latitude, Longitude, Gender, 
+         `Self-defined ethnicity`) %>% 
+  kable(x = ., caption = "Merseyside data sample for July 2025. Source: https://data.police.uk/data/.") %>% 
+  kable_styling(font_size = 22) %>%
+  scroll_box(width = "1000px", height = "420px")
 ```
 
-Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
+</center>
+
+## Frequency table 
+
+<br>
 
 ::: columns
 ::: {.column width=50%}
@@ -197,11 +218,11 @@ kable(syork_gen, caption = "South Yorkshire")
 
 <center>
 
-Data for July 2025. Source: https://data.police.uk/data/.
+
 
 </center>
 
-## Frequency & proportions
+## Proportion table
 
 <br>
 
@@ -219,8 +240,6 @@ syork_gen <- count(syork, Gender, name = "Count") %>%
     Gender = "Other", Count = 0 # Making categories comparable.
   ))
 ```
-
-Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
 
 ::: columns
 ::: {.column width=50%}
@@ -247,13 +266,16 @@ syork_gen %>%
 
 <center>
 
-Data for July 2025. Source: https://data.police.uk/data/.
+(no, it's not a mistake)
 
 </center>
 
-## Frequency & proportions
+## Proportions not always 'better'
 
-<br>
+What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+
+
+## Proportions not always 'better'
 
 What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
 
@@ -272,6 +294,7 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 :::
 
 ::: {.column width=50%}
+  
 
 :::
 :::
@@ -279,11 +302,10 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 <br>
 
 Data is fictitious! 
+
 </center>
 
-## Frequency & proportions
-
-<br>
+## Proportions not always 'better'
 
 What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
 
@@ -318,10 +340,14 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 Data is fictitious! 
 </center>
 
-## Numeric variables
+## Take a breather
 
-## Analysis: central tendancy
+## Visualisation
 
-## So what?
+
+
+
+
+
 
 

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Making Sense of Criminological Data (Week 2)">
-  <title>Univariate analysis of categorical and numeric variables</title>
+  <title>  Univariate analysis of categorical variables</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -121,13 +121,15 @@
       margin-right: 0; 
     }
   </style>
+  <script src="2.1_files/libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="2.1_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Univariate analysis of categorical and numeric variables</h1>
+  <h1 class="title"><br> Univariate analysis of categorical variables</h1>
   <p class="subtitle">Sam Langton, University of Manchester</p>
 
 <div class="quarto-title-authors">
@@ -143,13 +145,13 @@ Making Sense of Criminological Data (Week 2)
 <h2>Plan for today</h2>
 <ul>
 <li>What is univariate analysis?</li>
-<li>Types of variables: categorical &amp; numeric</li>
+<li>Categorical variables</li>
 <li>Analysis
 <ul>
-<li>Frequencies and percentages (categorical)</li>
-<li>Measures of central tendency (numeric)</li>
+<li>Frequencies &amp; percentages</li>
+<li>Stop-and-search example</li>
 </ul></li>
-<li>So what?</li>
+<li>Visualisation</li>
 </ul>
 </section>
 <section id="univariate-analysis" class="slide level2">
@@ -404,10 +406,203 @@ Making Sense of Criminological Data (Week 2)
 
 </div></div>
 </section>
+<section id="take-a-breather" class="slide level2">
+<h2>Take a breather</h2>
+</section>
 <section id="frequency-proportions" class="slide level2">
 <h2>Frequency &amp; proportions</h2>
-<p><br></p>
 <p>Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?</p>
+</section>
+<section id="frequency-proportions-1" class="slide level2">
+<h2>Frequency &amp; proportions</h2>
+<p>Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?</p>
+<center>
+<div class="cell">
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:420px; overflow-x: scroll; width:1000px; ">
+<table class="table caption-top" data-quarto-postprocess="true" style="font-size: 22px; margin-left: auto; margin-right: auto;">
+<caption>Merseyside data sample for July 2025. Source: https://data.police.uk/data/.</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Type</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Date</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">Latitude</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">Longitude</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Gender</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Self-defined ethnicity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-14 15:38:33</td>
+<td style="text-align: right;">53.38432</td>
+<td style="text-align: right;">-3.038406</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-29 23:40:36</td>
+<td style="text-align: right;">53.43089</td>
+<td style="text-align: right;">-2.978583</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Other ethnic group - Any other ethnic group</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-30 20:59:15</td>
+<td style="text-align: right;">53.78137</td>
+<td style="text-align: right;">-1.742081</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-13 00:06:55</td>
+<td style="text-align: right;">53.40332</td>
+<td style="text-align: right;">-2.986058</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-13 19:10:02</td>
+<td style="text-align: right;">53.64516</td>
+<td style="text-align: right;">-2.996421</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-07 17:52:13</td>
+<td style="text-align: right;">53.40706</td>
+<td style="text-align: right;">-2.984535</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Black/African/Caribbean/Black British - Any other Black/African/Caribbean background</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person and Vehicle search</td>
+<td style="text-align: left;">2025-07-02 01:02:38</td>
+<td style="text-align: right;">53.39426</td>
+<td style="text-align: right;">-2.937184</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-05 22:28:28</td>
+<td style="text-align: right;">53.45354</td>
+<td style="text-align: right;">-2.720825</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-08 18:22:51</td>
+<td style="text-align: right;">53.39954</td>
+<td style="text-align: right;">-3.058134</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person and Vehicle search</td>
+<td style="text-align: left;">2025-07-07 10:28:27</td>
+<td style="text-align: right;">53.45756</td>
+<td style="text-align: right;">-2.854570</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-20 22:31:02</td>
+<td style="text-align: right;">53.34664</td>
+<td style="text-align: right;">-2.830989</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-08 07:43:51</td>
+<td style="text-align: right;">53.41606</td>
+<td style="text-align: right;">-2.973052</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-29 21:53:09</td>
+<td style="text-align: right;">53.40248</td>
+<td style="text-align: right;">-3.017986</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vehicle search</td>
+<td style="text-align: left;">2025-07-10 16:22:51</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person and Vehicle search</td>
+<td style="text-align: left;">2025-07-24 05:36:52</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-01 16:08:39</td>
+<td style="text-align: right;">53.40963</td>
+<td style="text-align: right;">-2.989754</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-06 00:25:51</td>
+<td style="text-align: right;">53.37649</td>
+<td style="text-align: right;">-3.096450</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-08 23:36:45</td>
+<td style="text-align: right;">53.42111</td>
+<td style="text-align: right;">-3.078322</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-04 12:10:08</td>
+<td style="text-align: right;">53.43349</td>
+<td style="text-align: right;">-2.986561</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">White - English/Welsh/Scottish/Northern Irish/British</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Person search</td>
+<td style="text-align: left;">2025-07-15 23:33:30</td>
+<td style="text-align: right;">53.41078</td>
+<td style="text-align: right;">-2.990247</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: left;">Mixed/Multiple ethnic groups - Any other Mixed/Multiple ethnic background</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</center>
+</section>
+<section id="frequency-table" class="slide level2">
+<h2>Frequency table</h2>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -468,13 +663,11 @@ Making Sense of Criminological Data (Week 2)
 </div></div>
 <p><br></p>
 <center>
-<p>Data for July 2025. Source: https://data.police.uk/data/.</p>
 </center>
 </section>
-<section id="frequency-proportions-1" class="slide level2">
-<h2>Frequency &amp; proportions</h2>
+<section id="proportion-table" class="slide level2">
+<h2>Proportion table</h2>
 <p><br></p>
-<p>Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -535,12 +728,15 @@ Making Sense of Criminological Data (Week 2)
 </div></div>
 <p><br></p>
 <center>
-<p>Data for July 2025. Source: https://data.police.uk/data/.</p>
+<p>(no, it’s not a mistake)</p>
 </center>
 </section>
-<section id="frequency-proportions-2" class="slide level2">
-<h2>Frequency &amp; proportions</h2>
-<p><br></p>
+<section id="proportions-not-always-better" class="slide level2">
+<h2>Proportions not always ‘better’</h2>
+<p>What is the gender breakdown of individuals subject to stop-and-search <strong>in Chorlton</strong> between <strong>1-7 September</strong>?</p>
+</section>
+<section id="proportions-not-always-better-1" class="slide level2">
+<h2>Proportions not always ‘better’</h2>
 <p>What is the gender breakdown of individuals subject to stop-and-search <strong>in Chorlton</strong> between <strong>1-7 September</strong>?</p>
 <center>
 <div class="columns">
@@ -572,12 +768,11 @@ Making Sense of Criminological Data (Week 2)
 
 </div></div>
 <p><br></p>
-Data is fictitious!
+<p>Data is fictitious!</p>
 </center>
 </section>
-<section id="frequency-proportions-3" class="slide level2">
-<h2>Frequency &amp; proportions</h2>
-<p><br></p>
+<section id="proportions-not-always-better-2" class="slide level2">
+<h2>Proportions not always ‘better’</h2>
 <p>What is the gender breakdown of individuals subject to stop-and-search <strong>in Chorlton</strong> between <strong>1-7 September</strong>?</p>
 <center>
 <div class="columns">
@@ -634,14 +829,11 @@ Data is fictitious!
 Data is fictitious!
 </center>
 </section>
-<section id="numeric-variables" class="slide level2">
-<h2>Numeric variables</h2>
+<section id="take-a-breather-1" class="slide level2">
+<h2>Take a breather</h2>
 </section>
-<section id="analysis-central-tendancy" class="slide level2">
-<h2>Analysis: central tendancy</h2>
-</section>
-<section id="so-what" class="slide level2">
-<h2>So what?</h2>
+<section id="visualisation" class="slide level2">
+<h2>Visualisation</h2>
 
 </section>
     </div>
