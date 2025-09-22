@@ -400,49 +400,57 @@ survey_df %>%
 
 ## Ordinal visualisations
 
-::: columns
+Example: rating local police forces over time (CSEW).
 
-::: column
+```{r, fig.width=18, fig.height=9}
+library(readxl)
 
-```{r, fig.height=7, fig.width = 6}
-survey_df %>% 
-  mutate(Answer_fr = fct_relevel(Answer,
+survey_df <- readxl::read_excel("data/experienceandperceptionofpolicingandcjstablesyemarch2025.xlsx", sheet = 4, skip = 7)
+
+survey_clean_df <- survey_df %>% 
+  slice(-6) %>% 
+  rename(Rating = `Trends in ratings`) %>% 
+  select(1:21) %>% 
+  pivot_longer(cols = -Rating) %>% 
+  group_by(Rating) %>% 
+  mutate(year_beg = c(2003:2019, 2022:2024)) %>% 
+  ungroup()
+
+# Mess up order intentionally for example.
+survey_clean_df <- survey_clean_df %>% 
+  mutate(Rating_fr = fct_relevel(Rating,
                                  "Good",
                                  "Fair",
                                  "Excellent",
                                  "Poor",
-                                 "Very poor")) %>% 
-  ggplot() +
-  geom_bar(mapping = aes(x = 1, y = Percentage,
-                       fill = Answer_fr),
-           stat = "identity") +
-  labs(fill = NULL) +
+                                 "Very poor"))
+  
+
+ggplot(data = survey_clean_df) +
+  geom_col(mapping = aes(x = year_beg, 
+                         y = value, fill = Rating_fr)) +
+  labs(x = "Year", y = "Proportion", fill = NULL) +
   theme_bw() +
-  theme(axis.text.x = element_blank(),
-        axis.title.x = element_blank(),
-        axis.ticks.x = element_blank(),
+  theme(legend.position = "bottom",
         text = element_text(size = 30))
+
 ```
 
-:::
+## Ordinal visualisations
 
-::: column
+Example: rating local police forces over time (CSEW).
 
-```{r, fig.height=7, fig.width = 6}
-survey_df %>% 
-  ggplot() +
-  geom_bar(mapping = aes(x = 1, y = Percentage,
-                       fill = Answer),
-           stat = "identity") +
-  labs(fill = NULL) +
+```{r, fig.width=18, fig.height=9}
+ggplot(data = survey_clean_df) +
+  geom_col(mapping = aes(x = year_beg, 
+                         y = value, fill = Rating), alpha = 0.9,
+           colour = "grey") +
+  labs(x = "Year", y = "Proportion", fill = NULL) +
   scale_fill_brewer(palette = "Spectral", direction = -1) +
   theme_bw() +
-  theme(axis.text.x = element_blank(),
-        axis.title.x = element_blank(),
-        axis.ticks.x = element_blank(),
+  theme(legend.position = "bottom",
         text = element_text(size = 30))
 ```
 
-:::
+## All done!
 
-:::
