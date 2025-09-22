@@ -15,6 +15,7 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(ggplot2)
+library(forcats)
 library(kableExtra)
 ```
 
@@ -33,22 +34,29 @@ library(kableExtra)
 <br>
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
+
 - Univariate = one variable
 - Simple but common (and important)
 - Typically **summarising** and **describing** 
+
 :::
 
-::: {.column width="50%"}
+::: column
 
 ![](img/unicycle.gif)
+
 :::
+
 :::
 
 ## Categorical variables
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
+
 - Two or more categories, such as:
   - Nationality
   - Crime type
@@ -57,11 +65,12 @@ library(kableExtra)
 
 :::
 
-::: {.column width="50%"}
+::: column
 
 ![](img/categorical.png){width=70%}
 
 :::
+
 :::
 
 ## Analysis: frequencies 
@@ -75,14 +84,16 @@ students_df <- data.frame(
 ```
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
+
 ```{r}
 kable(students_df, align = "l", caption = "Raw data") 
 ```
 
 :::
 
-::: {.column width="50%"}
+::: column
   
 :::
 
@@ -91,13 +102,16 @@ kable(students_df, align = "l", caption = "Raw data")
 ## Analysis: frequencies 
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
+
 ```{r}
 kable(students_df, align = "l", caption = "Raw data")
 ```
+
 :::
 
-::: {.column width="50%"}
+::: column
 
 <br>
 
@@ -110,6 +124,7 @@ kable(freq_df, align = "l", caption = "Frequency table")
 ```
 
 :::
+
 :::
 
 ## Analysis: proportions
@@ -117,7 +132,8 @@ kable(freq_df, align = "l", caption = "Frequency table")
 <br>
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
 
 ```{r}
 kable(freq_df, align = "l", caption = "Frequency table")
@@ -125,9 +141,10 @@ kable(freq_df, align = "l", caption = "Frequency table")
 
 :::
 
-::: {.column width="50%"}
+::: column 
 
 :::
+
 :::
 
 ## Analysis: proportions
@@ -135,7 +152,8 @@ kable(freq_df, align = "l", caption = "Frequency table")
 <br>
 
 ::: columns
-::: {.column width="50%"}
+
+::: column
 
 ```{r}
 kable(freq_df, align = "l", caption = "Frequency table")
@@ -143,7 +161,7 @@ kable(freq_df, align = "l", caption = "Frequency table")
 
 :::
 
-::: {.column width=50%}
+::: column
 
 ```{r}
 freq_df %>% 
@@ -155,7 +173,7 @@ freq_df %>%
 
 :::
 
-::: {.column width=50%}
+::: column
   
 :::
 
@@ -203,16 +221,23 @@ mersey %>%
 <br>
 
 ::: columns
-::: {.column width=50%}
+
+::: column
+
 ```{r}
 kable(mersey_gen, caption = "Merseyside")
 ```
+
 :::
-::: {.column width=50%}
+
+::: column
+
 ```{r}
 kable(syork_gen, caption = "South Yorkshire") 
 ```
+
 :::
+
 :::
 
 <br>
@@ -243,7 +268,9 @@ syork_gen <- count(syork, Gender, name = "Count") %>%
 ```
 
 ::: columns
-::: {.column width=50%}
+
+::: column
+
 ```{r}
 mersey_gen %>% 
   mutate(total = sum(Count),
@@ -251,8 +278,11 @@ mersey_gen %>%
   select(-total, -Count) %>% 
   kable(caption = "Merseyside")
 ```
+
 :::
-::: {.column width=50%}
+
+::: column
+
 ```{r}
 syork_gen %>% 
   mutate(total = sum(Count),
@@ -260,7 +290,9 @@ syork_gen %>%
   select(-total, -Count) %>% 
   kable(caption = "South Yorkshire") 
 ```
+
 :::
+
 :::
 
 <br>
@@ -283,7 +315,9 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 <center>
 
 ::: columns
-::: {.column width=50%}
+
+::: column
+
 | Gender | Percent |
 | :----- | -----:  |
 | Female | 100     |
@@ -294,9 +328,8 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 
 :::
 
-::: {.column width=50%}
+::: column
   
-
 :::
 :::
 
@@ -313,7 +346,9 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 <center>
 
 ::: columns
-::: {.column width=50%}
+
+::: column
+
 | Gender | Percent |
 | :----- | -----:  |
 | Female | 100     |
@@ -324,7 +359,8 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 
 :::
 
-::: {.column width=50%}
+::: column
+
 | Gender | Count  |
 | :----- | ------:|
 | Female | 1      |
@@ -334,6 +370,7 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 : Frequency table
 
 :::
+
 :::
 
 <br>
@@ -341,35 +378,73 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 Data is fictitious! 
 </center>
 
-## Take a breather
+## What's the difference with ordinal?
 
-## Visualisation: bar plots
+For now, not much!
+
+But consider presentation in **tables** and **graphs**.
+
+## Ordinal tables
+
+Example: A table summarising survey results of people rating their local police force (CSEW, 2025).
+
+```{r}
+survey_df <- read_csv("data/ordinal_example.csv", skip = 1)
+
+set.seed(1612)
+survey_df %>% 
+  sample_n(size = 5, replace = FALSE) %>% 
+  kable() %>% 
+  kable_styling(font_size = 30)
+```
+
+...irritating.
+
+## Ordinal visualisations
 
 ::: columns
-::: {.column width=50%}
-```{r, fig.height=12}
-syork_gen %>% 
-  mutate(region = "South Yorkshire") %>% 
-  bind_rows(mutate(mersey_gen,
-                   region = "Merseyside")) %>% 
+
+::: column
+
+```{r, fig.height=10, fig.width = 8}
+survey_df %>% 
+  mutate(Answer_fr = fct_relevel(Answer,
+                                 "Good",
+                                 "Fair",
+                                 "Excellent",
+                                 "Poor",
+                                 "Very poor")) %>% 
   ggplot() +
-  geom_col(mapping = aes(x = Gender,
-                         y = Count,
-                         fill = Gender)) +
-  facet_wrap(~region) +
+  geom_bar(mapping = aes(x = 1, y = Percentage,
+                       fill = Answer_fr),
+           stat = "identity") +
+  labs(fill = NULL) +
   theme_bw() +
-  theme(legend.position = "none",
-        plot.title = element_text(size = 40),
-        axis.title = element_text(size = 30),
-        axis.text = element_text(size = 24),
-        strip.text = element_text(size = 30))
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        text = element_text(size = 30))
 ```
-:::
-
-::: {.column width=50%}
 
 :::
 
+::: column
 
+```{r, fig.height=10, fig.width = 8}
+survey_df %>% 
+  ggplot() +
+  geom_bar(mapping = aes(x = 1, y = Percentage,
+                       fill = Answer),
+           stat = "identity") +
+  labs(fill = NULL) +
+  scale_fill_brewer(palette = "Spectral", direction = -1) +
+  theme_bw() +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        text = element_text(size = 30))
+```
 
+:::
 
+:::
