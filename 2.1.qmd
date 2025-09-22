@@ -207,7 +207,8 @@ syork_gen <- count(syork, Gender, name = "Count") %>%
 
 mersey %>% 
   sample_n(size = 20) %>%
-  select(Type, Date, Latitude, Longitude, Gender, 
+  mutate(ID = 1:20) %>% 
+  select(ID, Type, Date, Latitude, Longitude, Gender, 
          `Self-defined ethnicity`) %>% 
   kable(x = ., caption = "Merseyside data sample for July 2025. Source: https://data.police.uk/data/.") %>% 
   kable_styling(font_size = 22) %>%
@@ -305,14 +306,16 @@ syork_gen %>%
 
 ## Proportions not always 'better'
 
-What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+What is the gender breakdown of individuals subject to stop-and-search in South Yorkshire?
 
 
 ## Proportions not always 'better'
 
-What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+What is the gender breakdown of individuals subject to stop-and-search in South Yorkshire?
 
 <center>
+
+<p style="font-size:26px"> _Data collected between 7-8pm on 1 July_. </p>
 
 ::: columns
 
@@ -333,17 +336,15 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 :::
 :::
 
-<br>
-
-Data is fictitious! 
-
 </center>
 
 ## Proportions not always 'better'
 
-What is the gender breakdown of individuals subject to stop-and-search **in Chorlton** between **1-7 September**?
+What is the gender breakdown of individuals subject to stop-and-search in South Yorkshire?
 
 <center>
+
+<p style="font-size:26px"> _Data collected between 7-8pm on 1 July_. </p>
 
 ::: columns
 
@@ -372,15 +373,12 @@ What is the gender breakdown of individuals subject to stop-and-search **in Chor
 :::
 
 :::
-
-<br>
-
-Data is fictitious! 
+ 
 </center>
 
 ## What's the difference with ordinal?
 
-For now, not much!
+For now, not much.
 
 But consider presentation in **tables** and **graphs**.
 
@@ -406,7 +404,7 @@ survey_df %>%
 
 ::: column
 
-```{r, fig.height=10, fig.width = 8}
+```{r, fig.height=7, fig.width = 6}
 survey_df %>% 
   mutate(Answer_fr = fct_relevel(Answer,
                                  "Good",
@@ -430,7 +428,7 @@ survey_df %>%
 
 ::: column
 
-```{r, fig.height=10, fig.width = 8}
+```{r, fig.height=7, fig.width = 6}
 survey_df %>% 
   ggplot() +
   geom_bar(mapping = aes(x = 1, y = Percentage,
