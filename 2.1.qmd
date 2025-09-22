@@ -14,6 +14,7 @@ library(knitr)
 library(dplyr)
 library(readr)
 library(tidyr)
+library(ggplot2)
 library(kableExtra)
 ```
 
@@ -342,11 +343,32 @@ Data is fictitious!
 
 ## Take a breather
 
-## Visualisation
+## Visualisation: bar plots
 
+::: columns
+::: {.column width=50%}
+```{r, fig.height=12}
+syork_gen %>% 
+  mutate(region = "South Yorkshire") %>% 
+  bind_rows(mutate(mersey_gen,
+                   region = "Merseyside")) %>% 
+  ggplot() +
+  geom_col(mapping = aes(x = Gender,
+                         y = Count,
+                         fill = Gender)) +
+  facet_wrap(~region) +
+  theme_bw() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 40),
+        axis.title = element_text(size = 30),
+        axis.text = element_text(size = 24),
+        strip.text = element_text(size = 30))
+```
+:::
 
+::: {.column width=50%}
 
-
+:::
 
 
 
