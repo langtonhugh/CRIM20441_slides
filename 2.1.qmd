@@ -315,7 +315,7 @@ What is the gender breakdown of individuals subject to stop-and-search in South 
 
 <center>
 
-<p style="font-size:26px"> _Data collected between 7-8pm on 1 July_. </p>
+<p style="font-size:26px"> _Data collected between 7-8pm on 1 July 2025_. </p>
 
 ::: columns
 
@@ -344,7 +344,7 @@ What is the gender breakdown of individuals subject to stop-and-search in South 
 
 <center>
 
-<p style="font-size:26px"> _Data collected between 7-8pm on 1 July_. </p>
+<p style="font-size:26px"> _Data collected between 7-8pm on 1 July 2025_. </p>
 
 ::: columns
 

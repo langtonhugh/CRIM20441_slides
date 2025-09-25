@@ -1,29 +1,201 @@
 ---
-title: "Graphical representation of univariate categorical variables"
+title: "<br> Univariate analysis of numeric variables"
 author: "Making Sense of Criminological Data (Week 2)"
 subtitle: "Sam Langton, University of Manchester"
 format: revealjs
 editor_options: 
   chunk_output_type: console
+execute:
+  echo: false
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
+```{r setup}
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(kableExtra)
 ```
 
+## Plan for today
+
+- Numeric variables
+- Analysis
+  - Measures of central tendency
+  - Variation & standard deviation
+- Visualisation
+
+## Numeric variables
+
+Back to our student raw data set, now also with height:
+
+```{r}
+students_df <- data.frame(
+  Student.ID  = c(12,6,34,2,41,15),
+  Nationality = c("British","British","French",
+                   "Dutch","French","British"),
+  Height.cm     = c(172, 155, 180, 220, 170, 188)
+)
+
+kable(students_df, align = "l") 
+```
+
+## Numeric variables
+
+Would a frequency (or proportion) table be a useful summary?
+
+```{r}
+students_df %>% 
+  group_by(Height.cm) %>% 
+  tally(name = "Count") %>% 
+  kable(align = "l")
+```
+
+<center>
+
+...nope.
+
+</center>
+
+## Analysis: central tendency
+
+## Analysis: central tendency
+
+<br>
+
+![](img/average3.png)
+
+Source: [Daily Mail Online](https://www.dailymail.co.uk/health/article-14494319/TALL-kill-Expert-average-height-risk-illnesses-cancer-diabetes.html)
+
+## Analysis: central tendency
+
+<br>
+
+![](img/average1.png)
+
+Source: [The Guardian](https://www.theguardian.com/money/2024/mar/24/despite-what-jeremy-hunt-thinks-high-income-salary)
+
+
+## Analysis: central tendency
+
+<br>
+
+![](img/average5.png)
+
+Source: [BBC](https://www.bbc.co.uk/news/articles/c722x3g20ezo)
+
+## Analysis: central tendency
+
+Most common: <span style="color: tomato;">the mean</span> (the 'average').
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+mean_height <- round(
+  mean(students_df$Height.cm),
+0)
+
+p1 <- ggplot(data = students_df) +
+  geom_point(mapping = aes(x = Student.ID, y = Height.cm),
+             size = 5) +
+  theme(text = element_text(size = 22))
+
+p1_me <- p1 +
+  geom_hline(mapping = aes(
+    yintercept = mean_height,
+    text = mean_height),
+    colour = "tomato", linetype = "dotted"
+    ) 
+  
+p1_me %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+  
+:::
+
+:::
+
+## Analysis: central tendency
+
+Most common: <span style="color: tomato;">the mean</span> (the 'average').
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+mean_height <- round(
+  mean(students_df$Height.cm),
+0)
+
+p1_me %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+The sum of each student's height is `r sum(students_df$Height.cm)`cm.
+ 
+There are `r nrow(students_df)` students.
+
+The mean height is `r mean_height`cm ($\frac{`r sum(students_df$Height.cm)`}{`r nrow(students_df)`}$).
+:::
+
+:::
+
+## Analysis: central tendency
+
+Less common (but important): <span style="color: dodgerblue">the median</span>.
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+median_height <- median(students_df$Height.cm)
+
+p1_me_med <- p1_me +
+  geom_hline(mapping = aes(
+    yintercept = median_height,
+    text = median_height),
+    colour = "dodgerblue", linetype = "dotted"
+    ) 
+
+p1_me_med %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+  
+```
+:::
+
+::: {.column width="30%"}
+Line up your numbers in order and **pick the middle one**.
+
+If you have an even number, take the **mean of the middle two**.
+:::
+
+:::
+
+## Analysis: central tendency
+
+So back to this... why use the median?
+
+![](img/average1.png)
+
+Source: [The Guardian](https://www.theguardian.com/money/2024/mar/24/despite-what-jeremy-hunt-thinks-high-income-salary)
+
+## Analysis: Variation
+
+## Analysis: Standard deviation
+
+## Visualisation
+
+## All done!
 
