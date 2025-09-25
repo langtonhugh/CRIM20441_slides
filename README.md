@@ -1,2 +1,1 @@
-# SL_material
-
+Slides and additional material for CRIM20441.
