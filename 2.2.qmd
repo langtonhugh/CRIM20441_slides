@@ -12,9 +12,12 @@ execute:
 ```{r setup}
 library(knitr)
 library(dplyr)
+library(forcats)
 library(ggplot2)
 library(plotly)
 library(kableExtra)
+
+set_theme(theme_bw())
 ```
 
 ## Plan for today
@@ -31,7 +34,9 @@ Back to our student raw data set, now also with height:
 
 ```{r}
 students_df <- data.frame(
-  Student.ID  = c(12,6,34,2,41,15),
+  Student.ID  = as.factor(
+    c(12,6,34,2,41,15)
+    ),
   Nationality = c("British","British","French",
                    "Dutch","French","British"),
   Height.cm     = c(172, 155, 180, 220, 170, 188)
@@ -58,6 +63,10 @@ students_df %>%
 </center>
 
 ## Analysis: central tendency
+
+A way of **summarising an entire set of data points** using **one number**.
+
+Incredibly useful but **beware**! There's more to it...
 
 ## Analysis: central tendency
 
@@ -95,19 +104,23 @@ mean_height <- round(
   mean(students_df$Height.cm),
 0)
 
+# I use this factor later to show the median.
+students_df <- students_df %>% 
+  mutate(Student.ID.Ordered = fct_reorder(
+    Student.ID, .x = Height.cm)
+    )
+
 p1 <- ggplot(data = students_df) +
   geom_point(mapping = aes(x = Student.ID, y = Height.cm),
              size = 5) +
+  geom_segment(mapping = aes(x = Student.ID,
+                             xend = Student.ID,
+                             y = 0,
+                             yend = Height.cm),
+               alpha = 0.5) +
   theme(text = element_text(size = 22))
-
-p1_me <- p1 +
-  geom_hline(mapping = aes(
-    yintercept = mean_height,
-    text = mean_height),
-    colour = "tomato", linetype = "dotted"
-    ) 
   
-p1_me %>% 
+p1 %>% 
   ggplotly(tooltip = c("text", "y")) %>% 
   layout(
   hoverlabel = list(font = list(size = 30))
@@ -116,7 +129,7 @@ p1_me %>%
 :::
 
 ::: {.column width="30%"}
-  
+
 :::
 
 :::
@@ -131,6 +144,13 @@ Most common: <span style="color: tomato;">the mean</span> (the 'average').
 mean_height <- round(
   mean(students_df$Height.cm),
 0)
+
+p1_me <- p1 +
+  geom_hline(mapping = aes(
+    yintercept = mean_height,
+    text = mean_height),
+    colour = "tomato", linetype = "dotted"
+    ) 
 
 p1_me %>% 
   ggplotly(tooltip = c("text", "y")) %>% 
@@ -159,14 +179,7 @@ Less common (but important): <span style="color: dodgerblue">the median</span>.
 ```{r, fig.width=6}
 median_height <- median(students_df$Height.cm)
 
-p1_me_med <- p1_me +
-  geom_hline(mapping = aes(
-    yintercept = median_height,
-    text = median_height),
-    colour = "dodgerblue", linetype = "dotted"
-    ) 
-
-p1_me_med %>% 
+p1_me %>% 
   ggplotly(tooltip = c("text", "y")) %>% 
   layout(
   hoverlabel = list(font = list(size = 30))
@@ -185,11 +198,96 @@ If you have an even number, take the **mean of the middle two**.
 
 ## Analysis: central tendency
 
+Less common (but important): <span style="color: dodgerblue">the median</span>.
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+median_height <- median(students_df$Height.cm)
+
+p1_me_ord <- ggplot(data = students_df) +
+  geom_point(mapping = aes(x = Student.ID.Ordered, y = Height.cm),
+             size = 5) +
+  geom_segment(mapping = aes(x = Student.ID.Ordered,
+                             xend = Student.ID.Ordered,
+                             y = 0,
+                             yend = Height.cm),
+               alpha = 0.5) +
+  geom_hline(mapping = aes(
+    yintercept = mean_height,
+    text = mean_height),
+    colour = "tomato", linetype = "dotted"
+    ) +
+  theme(text = element_text(size = 22)) 
+
+p1_me_ord %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+  
+```
+:::
+
+::: {.column width="30%"}
+Line up your numbers in order and **pick the middle one**.
+
+If you have an even number, take the **mean of the middle two**.
+:::
+
+:::
+
+## Analysis: central tendency
+
+Less common (but important): <span style="color: dodgerblue">the median</span>.
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+median_height <- median(students_df$Height.cm)
+
+
+p1_me_med_ord <- p1_me_ord +
+  geom_hline(mapping = aes(
+    yintercept = median_height,
+    text = median_height),
+    colour = "dodgerblue", linetype = "dotted"
+    ) 
+
+p1_me_med_ord %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+  
+```
+:::
+
+::: {.column width="30%"}
+Line up your numbers in order and **pick the middle one**.
+
+If you have an even number, take the **mean of the middle two**.
+:::
+
+:::
+
+
+
+## Analysis: central tendency
+
 So back to this... why use the median?
 
 ![](img/average1.png)
 
 Source: [The Guardian](https://www.theguardian.com/money/2024/mar/24/despite-what-jeremy-hunt-thinks-high-income-salary)
+
+## Analysis: central tendency
+
+<center>
+
+![](img/simpsons.jpeg){width=700}
+
+</center>
 
 ## Analysis: Variation
 
