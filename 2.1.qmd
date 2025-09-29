@@ -179,8 +179,6 @@ freq_df %>%
 
 :::
 
-## Take a breather
-
 ## Frequency & proportions
 
 Are there differences between police forces with regards to the gender of individuals subject to stop-and-search?
