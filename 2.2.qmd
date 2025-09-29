@@ -12,12 +12,16 @@ execute:
 ```{r setup}
 library(knitr)
 library(dplyr)
+library(readr)
+library(stringr)
 library(forcats)
 library(ggplot2)
 library(plotly)
 library(kableExtra)
 
 set_theme(theme_bw())
+
+options(scipen = 99999999)
 ```
 
 ## Plan for today
@@ -291,9 +295,324 @@ Source: [The Guardian](https://www.theguardian.com/money/2024/mar/24/despite-wha
 
 ## Analysis: Variation
 
+Back to our data (zoomed in).
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+p1_me_zoom <- p1_me + 
+  scale_y_continuous(limits = c(
+    min(students_df$Height.cm)*0.8,
+    max(students_df$Height.cm)*1
+  ))
+
+p1_me_zoom %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+How can we best summarise this **variation** around the mean?
+:::
+:::
+
+## Analysis: Variation
+
+Back to our data (zoomed in).
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+students_df <- students_df %>% 
+  mutate(pop_mean   = mean(Height.cm),
+         difference = round(Height.cm-pop_mean, 2),
+         diff_squar = round(difference^2,2),
+         variance   = mean(diff_squar),
+         s.dev      = sqrt(variance))
+
+p1_me_zoom <- p1_me + 
+  geom_segment(data = students_df,
+               mapping = aes(x = Student.ID,
+                             xend = Student.ID,
+                             y = Height.cm,
+                             yend = pop_mean,
+                             text = paste("Difference:", difference))) +
+    scale_y_continuous(limits = c(
+    min(students_df$Height.cm)*0.8,
+    max(students_df$Height.cm)*1
+  )) 
+
+p1_me_zoom %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+For each data points, calculate the difference to the mean.
+:::
+:::
+
+## Analysis: Variation
+
+Back to our data (zoomed in).
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+p1_sq <- p1_me_zoom +
+  geom_segment(data = students_df,
+               mapping = aes(x = Student.ID,
+                             xend = Student.ID,
+                             y = Height.cm,
+                             yend = pop_mean,
+                             text = paste("Squared difference:", diff_squar))) +
+    scale_y_continuous(limits = c(
+    min(students_df$Height.cm)*0.8,
+    max(students_df$Height.cm)*1
+  ))
+  
+
+
+p1_sq %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+**Square each difference**...
+
+:::
+:::
+
+## Analysis: Variation
+
+Back to our data (zoomed in).
+
+::: columns
+::: {.column width="70%"}
+```{r, fig.width=6}
+p1_sq <- p1_me_zoom +
+  geom_segment(data = students_df,
+               mapping = aes(x = Student.ID,
+                             xend = Student.ID,
+                             y = Height.cm,
+                             yend = pop_mean,
+                             text = paste("Squared difference:", diff_squar))) +
+    scale_y_continuous(limits = c(
+    min(students_df$Height.cm)*0.8,
+    max(students_df$Height.cm)*1
+  ))
+  
+
+
+p1_sq %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: {.column width="30%"}
+**Square each difference** and calculate **the mean** ($\frac{`r sum(students_df$diff_squar)`}{`r nrow(students_df)`}$).
+
+So our variance is `r unique(students_df$variance)`.
+
+...brilliant.
+:::
+:::
+
 ## Analysis: Standard deviation
 
+...But! We can now calculate the **standard deviation**.
+
+::: columns
+::: {.column width="70%"}
+
+```{r, fig.width=6}
+p1_sd <- p1_sq +
+  geom_hline(data = students_df,
+             mapping = aes(yintercept = pop_mean-s.dev,
+                           text = paste("-SD", round(s.dev, 1))),
+             colour = "pink",
+             size = 2) +
+  geom_hline(data = students_df,
+             mapping = aes(yintercept = pop_mean+s.dev,
+                           text = paste("+SD", round(s.dev, 1))),
+             colour = "pink",
+             size = 2) +
+  scale_y_continuous(limits = c(
+    min(students_df$Height.cm)*0.8,
+    max(students_df$Height.cm)*1
+  ))
+
+p1_sd %>% 
+  ggplotly(tooltip = c("y","text")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+
+:::
+
+::: {.column width="30%"}
+$SD = \sqrt{variance}$
+
+<br>
+
+For us, that's <span style="color: pink;"> `r round(unique(students_df$s.dev), 2)` </span>
+
+<br>
+
+Now we can judge the **central tendency** of our data much better.
+
+:::
+:::
+
 ## Visualisation
+
+One-off summary numbers (e.g., the mean) are **not always enough**.
+
+<br>
+
+One way to summarise everything is with a **data visualisation**.
+
+<br>
+
+But data is often **too big** to visualise each individual data point.
+
+<br>
+
+Example fix: **histograms**.
+
+## Visualisation
+
+Police-recorded crime in London neighbourhoods, July 2025
+
+::: columns
+::: column 
+```{r}
+met_crime <- read_csv("data/2025-07-metropolitan-street.csv") %>% 
+  rename(nhood_id = `LSOA code`)
+
+crime_counts <- met_crime %>%
+  group_by(nhood_id) %>% 
+  tally(name = "Count") %>%
+  arrange(desc(Count)) 
+
+mean_cc <- round(mean(crime_counts$Count), 2)
+median_cc <- round(median(crime_counts$Count), 2)
+sd_cc <- round(
+  sqrt((nrow(crime_counts)-1)/nrow(crime_counts)) * sd(crime_counts$Count),
+  2
+  )
+
+kable(x = crime_counts) %>% 
+  kable_styling(font_size = 22) %>%
+  scroll_box(width = "500", height = "420px")
+```
+:::
+
+::: column
+<br>
+<br>
+
+...good luck plotting those data points individually.
+:::
+:::
+
+## Histograms
+
+Group ('bin') neighbourhoods according to the counts.
+
+::: columns
+::: column
+```{r}
+crime_counts %>% 
+  kable() %>% 
+  kable_styling(font_size = 22) %>%
+  scroll_box(width = "500", height = "420px")
+```
+:::
+
+::: column
+```{r}
+# Apologies for this code in advance! Hard coded and awful.
+# Please improve...
+bins_df <- cut_interval(crime_counts$Count, n = 20) %>%
+  table() %>%
+  as.data.frame() 
+
+names(bins_df) <- c("bin", "number_of_nhoods") 
+
+histo_df <- bins_df %>% 
+  # sorryyyyyy
+  mutate(bin = str_remove_all (bin, "\\["),
+         bin = str_remove_all (bin, "\\("),
+         bin = str_remove_all (bin, "\\]"),
+         bin = str_replace_all(bin, ",", " to "),
+         bin = str_replace_all(bin, "1.05e\\+03", "1048"),
+         bin = str_replace_all(bin, "53.4", "53"),
+         temp = 1:nrow(bins_df),
+         bin = fct_reorder(
+    bin, .x = temp, .desc = FALSE
+    )) %>% 
+  select(-temp)
+
+histo_df %>% 
+  kable() %>% 
+  kable_styling(font_size = 22) %>%
+  scroll_box(width = "500", height = "420px")
+```
+:::
+:::
+
+## Histograms
+
+...then plot it out.
+
+::: columns
+::: column
+```{r, fig.width = 5}
+histo_gg <- ggplot(data = histo_df) +
+  geom_col(mapping = aes(x = bin, y = number_of_nhoods,
+                         text = paste("Bin:", bin))) +
+  labs(x = "bin grouping") +
+  theme(axis.text.x = element_text(angle = 90),
+        text = element_text(size = 16))
+
+histo_gg %>% 
+  ggplotly(tooltip = c("text", "y")) %>% 
+  layout(
+  hoverlabel = list(font = list(size = 30))
+  )
+```
+:::
+
+::: column
+"The **mean** neighbourhood crime count is `r mean_cc`. The **median** is `r median_cc`". The **SD** is `r sd_cc`".
+
+<br>
+
+...but would those tell the whole story?
+:::
+
+:::
+
+## Histograms
+
+But, sometimes histograms actually look nice...
+
+![Source: [Statistics by Jim](https://statisticsbyjim.com/basics/histograms/)](img/heights.png){width="40%"}
 
 ## All done!
 
