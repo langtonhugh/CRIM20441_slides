@@ -38,7 +38,7 @@ library(kableExtra)
 ::: column
 
 - Univariate = one variable
-- Simple but common (and important)
+- Very common (and important)
 - Typically **summarising** and **describing** 
 
 :::
@@ -396,6 +396,18 @@ survey_df %>%
 
 ...irritating.
 
+## Ordinal tables
+
+Example: A table summarising survey results of people rating their local police force (CSEW, 2025).
+
+```{r}
+survey_df %>% 
+  kable() %>% 
+  kable_styling(font_size = 30)
+```
+
+...irritating.
+
 ## Ordinal visualisations
 
 Example: rating local police forces over time (CSEW).
@@ -439,7 +451,14 @@ ggplot(data = survey_clean_df) +
 Example: rating local police forces over time (CSEW).
 
 ```{r, fig.width=18, fig.height=9}
-ggplot(data = survey_clean_df) +
+survey_clean_df %>% 
+  mutate(Rating = fct_relevel(Rating,
+                              "Excellent",
+                              "Good",
+                              "Fair",
+                              "Poor",
+                              "Very poor")) %>% 
+  ggplot(data = ) +
   geom_col(mapping = aes(x = year_beg, 
                          y = value, fill = Rating), alpha = 0.9,
            colour = "grey") +
